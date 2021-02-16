@@ -1,0 +1,6 @@
+revpi-bluetooth (1.0.0-1) buster; urgency=low
+
+  * Make the Initial Release for Revolution Pi BT.
+  * The bluetooth on Revolution Pi Flat is supported.
+
+ -- Zhi Han <z.han@kunbus.com>  Wed, 17 Mar 2021 08:58:56 +0100
