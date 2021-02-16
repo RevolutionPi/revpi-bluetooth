@@ -1,0 +1,7 @@
+[Unit]
+Description=Revolution Pi Bluetooth Device %i
+After=systemd-udev-settle.service
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/revpi-btuart %i

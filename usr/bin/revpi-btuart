@@ -1,0 +1,8 @@
+#!/bin/sh
+# referenced pi-bluetooth, bluetooth attach for Revolution Pi BT
+
+HCIATTACH=/usr/bin/hciattach
+TTYDEVNAME="$1"
+
+# Revolution Flat limits the speed to 2000000
+$HCIATTACH "$TTYDEVNAME" bcm43xx 2000000 flow
