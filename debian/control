@@ -1,0 +1,15 @@
+Source: revpi-bluetooth
+Section: misc
+Priority: optional
+Maintainer: KUNBUS GmbH <support@kunbus.com>
+Build-Depends: debhelper-compat (= 12)
+Standards-Version: 4.3.0
+Homepage: https://revolution.kunbus.com/
+Vcs-Browser: https://github.com/RevolutionPi/revpi-bluetooth
+Vcs-Git: https://github.com/RevolutionPi/revpi-bluetooth.git
+
+Package: revpi-bluetooth
+Architecture: all
+Depends: ${misc:Depends}, bluez, bluez-firmware
+Description: Revolution Pi bluetooth
+ Setup Revolution Pi bluetooth devices on boot
