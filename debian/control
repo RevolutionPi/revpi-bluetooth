@@ -10,6 +10,6 @@ Vcs-Git: https://github.com/RevolutionPi/revpi-bluetooth.git
 
 Package: revpi-bluetooth
 Architecture: all
-Depends: ${misc:Depends}, bluez, bluez-firmware
+Depends: ${misc:Depends}, bluez, bluez-firmware, gpiod
 Description: Revolution Pi bluetooth
  Setup Revolution Pi bluetooth devices on boot
