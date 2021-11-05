@@ -1,3 +1,12 @@
+revpi-bluetooth (1.0.1-1) buster; urgency=medium
+
+  * Flat: Reset the bt module before hciattach
+  * Add gpiod as dependency
+  * gbp.conf: Add debian-tag, debian-tag-msg and pristine-tar options
+  * Fix copyright file: missing-license-paragraph-in-dep5-copyright
+
+ -- Philipp Rosenberger <p.rosenberger@kunbus.com>  Fri, 05 Nov 2021 10:47:44 +0100
+
 revpi-bluetooth (1.0.0-3) buster; urgency=low
 
   * Remove the systemd related option and overides from rules.
