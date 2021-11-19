@@ -1,3 +1,9 @@
+revpi-bluetooth (1.0.2-1) buster; urgency=medium
+
+  * Add check that the rules are only run on Flat
+
+ -- Philipp Rosenberger <p.rosenberger@kunbus.com>  Fri, 19 Nov 2021 09:33:29 +0100
+
 revpi-bluetooth (1.0.1-1) buster; urgency=medium
 
   * Flat: Reset the bt module before hciattach
