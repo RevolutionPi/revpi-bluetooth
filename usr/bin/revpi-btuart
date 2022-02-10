@@ -6,8 +6,8 @@ TTYDEVNAME="$1"
 
 # RevPi Flat: The BT_REG_ON signal is connected to the GPIO11 of the expander.
 BT_REG_ON_GPIO=11
-GPIOCHIP="$(basename /sys/devices/platform/soc/3f804000.i2c/i2c-1/1-0020/gpiochip?)"
-if [ "$GPIOCHIP" != "gpiochip*" ]; then
+GPIOCHIP="$(basename /sys/devices/platform/soc/*.i2c/i2c-1/1-0020/gpiochip?)"
+if [ "$GPIOCHIP" != "gpiochip?" ]; then
 	# Reset the bt module in RevPi Flat
 	gpioset "$GPIOCHIP" $BT_REG_ON_GPIO=0
 	sleep 0.1
