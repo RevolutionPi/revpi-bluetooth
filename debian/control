@@ -2,11 +2,12 @@ Source: revpi-bluetooth
 Section: misc
 Priority: optional
 Maintainer: KUNBUS GmbH <support@kunbus.com>
-Build-Depends: debhelper-compat (= 12)
-Standards-Version: 4.3.0
-Homepage: https://revolution.kunbus.com/
+Rules-Requires-Root: no
+Homepage: https://revolutionpi.com/
 Vcs-Browser: https://github.com/RevolutionPi/revpi-bluetooth
 Vcs-Git: https://github.com/RevolutionPi/revpi-bluetooth.git
+Build-Depends: debhelper-compat (= 12)
+Standards-Version: 4.3.0
 
 Package: revpi-bluetooth
 Architecture: all
