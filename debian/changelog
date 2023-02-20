@@ -1,4 +1,4 @@
-revpi-bluetooth (1.0.3-1) buster; urgency=medium
+revpi-bluetooth (1.0.3-1+revpi11+1) bullseye; urgency=medium
 
   * fix: Discover gpiochip also on CM4s
 
