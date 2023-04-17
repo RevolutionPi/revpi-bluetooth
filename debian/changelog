@@ -1,3 +1,13 @@
+revpi-bluetooth (1.0.4-1+revpi10+1) buster; urgency=medium
+
+  * Use CMake for installation
+  * Set upstream-branch value in gbp.conf to master
+  * Update debian files for debian buster
+  * Update copyright file
+  * Add cmake to build-depends
+
+ -- Sven Sager <s.sager@kunbus.com>  Mon, 17 Apr 2023 22:28:25 +0200
+
 revpi-bluetooth (1.0.3-1) buster; urgency=medium
 
   * fix: Discover gpiochip also on CM4s
