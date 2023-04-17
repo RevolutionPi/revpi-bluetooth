@@ -6,7 +6,9 @@ Rules-Requires-Root: no
 Homepage: https://revolutionpi.com/
 Vcs-Browser: https://github.com/RevolutionPi/revpi-bluetooth
 Vcs-Git: https://github.com/RevolutionPi/revpi-bluetooth.git -b raspios/bullseye
-Build-Depends: debhelper-compat (= 13)
+Build-Depends:
+  cmake,
+  debhelper-compat (= 13)
 Standards-Version: 4.5.1
 
 Package: revpi-bluetooth
