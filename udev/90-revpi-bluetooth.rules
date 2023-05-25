@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2021-2023 KUNBUS GmbH
+#
+# SPDX-License-Identifier: GPL-2.0-or-later
+
 PROGRAM="/bin/grep -Fz -m 1 'kunbus,revpi-' /sys/firmware/devicetree/base/compatible"
 
 # Revolution Pi bluetooth module: start the hciuart service
