@@ -10,7 +10,8 @@ Build-Depends:
   cmake,
   debhelper-compat (= 13),
   pkg-config,
-  systemd
+  systemd,
+  udev
 Standards-Version: 4.5.1
 
 Package: revpi-bluetooth
