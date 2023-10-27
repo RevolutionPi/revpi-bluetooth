@@ -4,15 +4,15 @@ Priority: optional
 Maintainer: KUNBUS GmbH <support@kunbus.com>
 Rules-Requires-Root: no
 Homepage: https://revolutionpi.com/
-Vcs-Browser: https://github.com/RevolutionPi/revpi-bluetooth
-Vcs-Git: https://github.com/RevolutionPi/revpi-bluetooth.git -b raspios/bullseye
+Vcs-Browser: https://gitlab.com/revolutionpi/revpi-bluetooth
+Vcs-Git: https://gitlab.com/revolutionpi/revpi-bluetooth.git -b raspios/bookworm
 Build-Depends:
   cmake,
   debhelper-compat (= 13),
   pkg-config,
   systemd,
   udev
-Standards-Version: 4.5.1
+Standards-Version: 4.6.2
 
 Package: revpi-bluetooth
 Architecture: all
