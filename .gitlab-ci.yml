@@ -9,3 +9,13 @@ include:
       - if: $CI_COMMIT_BRANCH =~ /^(raspios|debian)\/.*/
       - exists:
           - debian/gitlab-ci.yml
+
+build-snapshot-packages:
+  parallel:
+    matrix:
+      # Run build only on arm64 as the package is of type architecture all
+      # and can be used on armhf as-well.
+      - ARCH: [arm64]
+        RELEASE: [bullseye]
+      - ARCH: [arm64]
+        RELEASE: [bookworm]
