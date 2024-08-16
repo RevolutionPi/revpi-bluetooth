@@ -10,6 +10,8 @@ HCIATTACH=/usr/bin/hciattach
 TTYDEVNAME="$1"
 
 attach_flat() {
+	# This helper method is applicable to the original RevPi Flat, which has the reset pin
+	# connected to a gpio on a expander. For RevPi Flat S see helper method below.
 	TTYDEV="$1"
 	# RevPi Flat: The BT_REG_ON signal is connected to the GPIO11 of the expander.
 	BT_REG_ON_GPIO=11
@@ -28,10 +30,23 @@ attach_flat() {
 	"$HCIATTACH" "$TTYDEV" bcm43xx 2000000 flow
 }
 
+attach_flat_s() {
+	TTYDEV="$1"
+	_hci_pid="$("$HCIATTACH" -p "$TTYDEV" any 3000000 flow)"
+
+	# At the time being the module needs a magic second initialization.
+	# Until the root-cause has been identified, this is done in order to
+	# make bluetooth usable here.
+	kill "$_hci_pid"
+	"$HCIATTACH" "$TTYDEV" any 3000000 flow
+}
 
 overlay="$(/bin/grep -z -m 1 'kunbus,revpi-' /proc/device-tree/compatible | tr -d '\0' | cut -f 2 -d ,)"
 case "$overlay" in
 revpi-flat)
 	attach_flat "$TTYDEVNAME"
+	;;
+revpi-flat-s-2022)
+	attach_flat_s "$TTYDEVNAME"
 	;;
 esac

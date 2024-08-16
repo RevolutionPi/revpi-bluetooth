@@ -6,5 +6,6 @@ PROGRAM="/bin/grep -Fz -m 1 'kunbus,revpi-' /sys/firmware/devicetree/base/compat
 
 # Revolution Pi bluetooth module: start the hciuart service
 RESULT=="kunbus,revpi-flat", ACTION=="add", SUBSYSTEM=="tty" DEVPATH=="*/usb1/1-1/1-1.5/1-1.5:1.0/*", TAG+="systemd", ENV{SYSTEMD_WANTS}+="revpi-hciuart@%k.service"
+RESULT=="kunbus,revpi-flat-s-2022", ACTION=="add", SUBSYSTEM=="tty" DEVPATH=="*201000.serial/*", TAG+="systemd", ENV{SYSTEMD_WANTS}+="revpi-hciuart@%k.service"
 # Revolution Pi bluetooth module: start the revpi-bthelper service
 RESULT=="kunbus,revpi-flat", ACTION=="add", SUBSYSTEM=="bluetooth", KERNEL=="hci[0-9]", TAG+="systemd", ENV{SYSTEMD_WANTS}+="revpi-bthelper@%k.service"
