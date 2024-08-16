@@ -5,6 +5,8 @@
 [Unit]
 Description=Revolution Pi Bluetooth Device %i
 After=systemd-udev-settle.service
+After=network.target
+Wants=network.target
 
 [Service]
 Type=forking
