@@ -9,6 +9,16 @@
 HCIATTACH=/usr/bin/hciattach
 TTYDEVNAME="$1"
 
+if [ -z "$TTYDEVNAME" ]; then
+	echo >&2 "usage: revpi-btuart TTYDEV"
+	exit 1
+fi
+
+if [ ! -e "$TTYDEVNAME" ] && [ ! -e /dev/"$TTYDEVNAME" ]; then
+	echo >&2 "tty device not present or invalid type: $TTYDEVNAME"
+	exit 2
+fi
+
 attach_flat() {
 	# This helper method is applicable to the original RevPi Flat, which has the reset pin
 	# connected to a gpio on a expander. For RevPi Flat S see helper method below.
