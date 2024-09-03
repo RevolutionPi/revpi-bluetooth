@@ -1,21 +1,62 @@
 #!/bin/sh
+
+# SPDX-FileCopyrightText: 2021-2024 KUNBUS GmbH
+#
+# SPDX-License-Identifier: GPL-2.0-or-later
+
 # referenced pi-bluetooth, bluetooth attach for Revolution Pi BT
 
 HCIATTACH=/usr/bin/hciattach
 TTYDEVNAME="$1"
 
-# RevPi Flat: The BT_REG_ON signal is connected to the GPIO11 of the expander.
-BT_REG_ON_GPIO=11
-GPIOCHIP="$(basename /sys/devices/platform/soc/*.i2c/i2c-1/1-0020/gpiochip?)"
-if [ "$GPIOCHIP" != "gpiochip?" ]; then
-	# Reset the bt module in RevPi Flat
-	gpioset "$GPIOCHIP" $BT_REG_ON_GPIO=0
-	sleep 0.1
-	gpioset "$GPIOCHIP" $BT_REG_ON_GPIO=1
-	sleep 0.1
-else
-	>&2 echo "$1: ERROR: Can't find the correct gpiochip to reset the bt module."
+if [ -z "$TTYDEVNAME" ]; then
+	echo >&2 "usage: revpi-btuart TTYDEV"
+	exit 1
 fi
 
-# Revolution Flat limits the speed to 2000000
-$HCIATTACH "$TTYDEVNAME" bcm43xx 2000000 flow
+if [ ! -e "$TTYDEVNAME" ] && [ ! -e /dev/"$TTYDEVNAME" ]; then
+	echo >&2 "tty device not present or invalid type: $TTYDEVNAME"
+	exit 2
+fi
+
+attach_flat() {
+	# This helper method is applicable to the original RevPi Flat, which has the reset pin
+	# connected to a gpio on a expander. For RevPi Flat S see helper method below.
+	TTYDEV="$1"
+	# RevPi Flat: The BT_REG_ON signal is connected to the GPIO11 of the expander.
+	BT_REG_ON_GPIO=11
+	GPIOCHIP="$(basename /sys/devices/platform/soc/*.i2c/i2c-1/1-0020/gpiochip?)"
+	if [ "$GPIOCHIP" != "gpiochip?" ]; then
+		# Reset the bt module in RevPi Flat
+		gpioset "$GPIOCHIP" $BT_REG_ON_GPIO=0
+		sleep 0.1
+		gpioset "$GPIOCHIP" $BT_REG_ON_GPIO=1
+		sleep 0.1
+	else
+		echo >&2 "$TTYDEV: ERROR: Can't find the correct gpiochip to reset the bt module."
+	fi
+
+	# Revolution Flat limits the speed to 2000000
+	"$HCIATTACH" "$TTYDEV" bcm43xx 2000000 flow
+}
+
+attach_flat_s() {
+	TTYDEV="$1"
+	_hci_pid="$("$HCIATTACH" -p "$TTYDEV" any 3000000 flow)"
+
+	# At the time being the module needs a magic second initialization.
+	# Until the root-cause has been identified, this is done in order to
+	# make bluetooth usable here.
+	kill "$_hci_pid"
+	"$HCIATTACH" "$TTYDEV" any 3000000 flow
+}
+
+overlay="$(/bin/grep -z -m 1 'kunbus,revpi-' /proc/device-tree/compatible | tr -d '\0' | cut -f 2 -d ,)"
+case "$overlay" in
+revpi-flat)
+	attach_flat "$TTYDEVNAME"
+	;;
+revpi-flat-s-2022)
+	attach_flat_s "$TTYDEVNAME"
+	;;
+esac
