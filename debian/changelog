@@ -1,3 +1,37 @@
+revpi-bluetooth (1.1.0-1+deb12+1) bookworm; urgency=medium
+
+  [ Thomas Böhler ]
+  * build: Use pkg-config for services install path
+  * build: Use pkg-config to install udev rules
+  * docs: Adhere to REUSE specification
+
+  [ Nicolai Buchwitz ]
+  * ci: Add pipeline for package build
+
+  [ Thomas Böhler ]
+  * chore: Add move to GitLab to README
+
+  [ Philipp Rosenberger ]
+  * Switch back to the debian/ namespace
+
+  [ Nicolai Buchwitz ]
+  * ci: Run local pipelines on debian/* branches
+  * ci: Limit snapshot builds to arm64
+  * ci: Run local pipeline only if file exists
+
+  [ Thomas Böhler ]
+  * ci(REUSE): Add REUSE linting in CI
+  * fix: Add missing license information
+
+  [ Nicolai Buchwitz ]
+  * feat: Make init logic depend on dt compatible
+  * feat: Add support for Flat S
+  * feat: Check arguments
+  * fix: Run revpi-hciuart after network.target
+  * chore: Update year in license headers
+
+ -- Sven Sager <s.sager@kunbus.com>  Tue, 03 Sep 2024 14:11:18 +0200
+
 revpi-bluetooth (1.0.4-1+revpi12+1) bookworm; urgency=medium
 
   [ Nicolai Buchwitz ]
