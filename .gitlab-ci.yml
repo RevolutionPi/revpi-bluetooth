@@ -1,0 +1,27 @@
+# SPDX-FileCopyrightText: 2023-2024 KUNBUS GmbH
+#
+# SPDX-License-Identifier: GPL-2.0-or-later
+
+# Build a snapshot debian package from current master
+include:
+  - project: "revolutionpi/infrastructure/ci-templates"
+    file: "base.yml"
+  - project: "revolutionpi/infrastructure/ci-templates"
+    file: "/package-snapshot-debian.yml"
+  - project: "revolutionpi/infrastructure/ci-templates"
+    file: "/reuse-lint.yml"
+  - local: debian/gitlab-ci.yml
+    rules:
+      - if: $CI_COMMIT_BRANCH =~ /^(raspios|debian)\/.*/
+        exists:
+          - debian/gitlab-ci.yml
+
+build-snapshot-packages:
+  parallel:
+    matrix:
+      # Run build only on arm64 as the package is of type architecture all
+      # and can be used on armhf as-well.
+      - ARCH: [arm64]
+        RELEASE: [bullseye]
+      - ARCH: [arm64]
+        RELEASE: [bookworm]

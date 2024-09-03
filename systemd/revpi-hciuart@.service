@@ -1,6 +1,12 @@
+# SPDX-FileCopyrightText: 2021-2024 KUNBUS GmbH
+#
+# SPDX-License-Identifier: GPL-2.0-or-later
+
 [Unit]
 Description=Revolution Pi Bluetooth Device %i
 After=systemd-udev-settle.service
+After=network.target
+Wants=network.target
 
 [Service]
 Type=forking
