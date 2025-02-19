@@ -53,7 +53,10 @@ attach_flat_s() {
 		return 1
 	fi
 
-	"$HCIATTACH" "$TTYDEV" any 3000000 flow
+	if ! "$HCIATTACH" "$TTYDEV" any 3000000 flow; then
+		printf "Error: Unable to attach %s via UART HCI\n" "$TTYDEV" >&2
+		return 1
+	fi
 }
 
 overlay="$(/bin/grep -z -m 1 'kunbus,revpi-' /proc/device-tree/compatible | tr -d '\0' | cut -f 2 -d ,)"
