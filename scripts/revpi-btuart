@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# SPDX-FileCopyrightText: 2021-2024 KUNBUS GmbH
+# SPDX-FileCopyrightText: 2021-2025 KUNBUS GmbH
 #
 # SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -42,7 +42,8 @@ attach_flat() {
 
 attach_flat_s() {
 	TTYDEV="$1"
-	_hci_pid="$("$HCIATTACH" -p "$TTYDEV" any 3000000 flow)"
+	"$HCIATTACH" -n "$TTYDEV" any 3000000 flow &
+	_hci_pid="$!"
 
 	# At the time being the module needs a magic second initialization.
 	# Until the root-cause has been identified, this is done in order to
