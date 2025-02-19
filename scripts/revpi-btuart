@@ -48,7 +48,11 @@ attach_flat_s() {
 	# At the time being the module needs a magic second initialization.
 	# Until the root-cause has been identified, this is done in order to
 	# make bluetooth usable here.
-	kill "$_hci_pid"
+	if ! kill "$_hci_pid"; then
+		printf "Error: Unable to kill process with PID %d\n" "$_hci_pid" >&2
+		return 1
+	fi
+
 	"$HCIATTACH" "$TTYDEV" any 3000000 flow
 }
 
