@@ -45,6 +45,14 @@ attach_flat_s() {
 	"$HCIATTACH" -n "$TTYDEV" any 3000000 flow &
 	_hci_pid="$!"
 
+	# The reason `hciattach` has to be performed twice seems to be because the
+	# bluetooth module takes a bit to initialise before it can answer, which is
+	# why the first try fails, but the second succeeds when doing this
+	# manually.
+	# Give the bluetooth chip some time to initialise before killing the
+	# `hciattach` process and starting the new one.
+	sleep 5
+
 	# At the time being the module needs a magic second initialization.
 	# Until the root-cause has been identified, this is done in order to
 	# make bluetooth usable here.
