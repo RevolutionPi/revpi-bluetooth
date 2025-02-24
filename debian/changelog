@@ -1,3 +1,13 @@
+revpi-bluetooth (1.1.1-1+deb12+1) bookworm; urgency=medium
+
+  [ Thomas Böhler ]
+  * fix(btuart): catch actual PID from hciattach
+  * fix(btuart): check return code of kill
+  * fix(btuart): check return code of of hciattach
+  * fix(btuart): give Flat S bt module time to init
+
+ -- Ramiro Gsponer <r.gsponer@kunbus.com>  Mon, 24 Feb 2025 15:29:04 +0100
+
 revpi-bluetooth (1.1.0-1+deb12+1) bookworm; urgency=medium
 
   [ Thomas Böhler ]
