@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# SPDX-FileCopyrightText: 2021-2024 KUNBUS GmbH
+# SPDX-FileCopyrightText: 2021-2025 KUNBUS GmbH
 #
 # SPDX-License-Identifier: GPL-2.0-or-later
 
@@ -42,13 +42,29 @@ attach_flat() {
 
 attach_flat_s() {
 	TTYDEV="$1"
-	_hci_pid="$("$HCIATTACH" -p "$TTYDEV" any 3000000 flow)"
+	"$HCIATTACH" -n "$TTYDEV" any 3000000 flow &
+	_hci_pid="$!"
+
+	# The reason `hciattach` has to be performed twice seems to be because the
+	# bluetooth module takes a bit to initialise before it can answer, which is
+	# why the first try fails, but the second succeeds when doing this
+	# manually.
+	# Give the bluetooth chip some time to initialise before killing the
+	# `hciattach` process and starting the new one.
+	sleep 5
 
 	# At the time being the module needs a magic second initialization.
 	# Until the root-cause has been identified, this is done in order to
 	# make bluetooth usable here.
-	kill "$_hci_pid"
-	"$HCIATTACH" "$TTYDEV" any 3000000 flow
+	if ! kill "$_hci_pid"; then
+		printf "Error: Unable to kill process with PID %d\n" "$_hci_pid" >&2
+		return 1
+	fi
+
+	if ! "$HCIATTACH" "$TTYDEV" any 3000000 flow; then
+		printf "Error: Unable to attach %s via UART HCI\n" "$TTYDEV" >&2
+		return 1
+	fi
 }
 
 overlay="$(/bin/grep -z -m 1 'kunbus,revpi-' /proc/device-tree/compatible | tr -d '\0' | cut -f 2 -d ,)"
