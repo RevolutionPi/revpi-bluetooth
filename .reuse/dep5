@@ -1,0 +1,8 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: revpi-bluetooth
+Upstream-Contact: KUNBUS GmbH <support@kunbus.com>
+Source: https://gitlab.com/revolutionpi/revpi-bluetooth.git
+
+Files: firmware/*
+Copyright: Broadcom Corporation
+License: LicenseRef-binary-redist-Broadcom-wifi
