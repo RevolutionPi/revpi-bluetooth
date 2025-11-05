@@ -72,7 +72,7 @@ case "$overlay" in
 revpi-flat)
 	attach_flat "$TTYDEVNAME"
 	;;
-revpi-flat-s-2022)
+revpi-flat-s-*)
 	attach_flat_s "$TTYDEVNAME"
 	;;
 esac
