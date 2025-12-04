@@ -5,17 +5,21 @@ Maintainer: KUNBUS GmbH <support@kunbus.com>
 Rules-Requires-Root: no
 Homepage: https://revolutionpi.com/
 Vcs-Browser: https://gitlab.com/revolutionpi/revpi-bluetooth
-Vcs-Git: https://gitlab.com/revolutionpi/revpi-bluetooth.git -b debian/bookworm
+Vcs-Git: https://gitlab.com/revolutionpi/revpi-bluetooth.git -b debian/trixie
 Build-Depends:
   cmake,
   debhelper-compat (= 13),
-  pkg-config,
-  systemd,
-  udev
-Standards-Version: 4.6.2
+  pkgconf,
+  systemd-dev,
+  udev,
+Standards-Version: 4.7.2
 
 Package: revpi-bluetooth
 Architecture: all
-Depends: ${misc:Depends}, bluez, bluez-firmware, gpiod
+Depends:
+ ${misc:Depends},
+ bluez,
+ bluez-firmware,
+ gpiod,
 Description: Revolution Pi bluetooth
  Setup Revolution Pi bluetooth devices on boot
