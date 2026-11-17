@@ -15,3 +15,5 @@ include:
     rules:
       - exists:
           - debian/gitlab-ci.yml
+  - project: "revolutionpi/infrastructure/ci-templates"
+    file: "/testing/package-devel.yml"
